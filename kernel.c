@@ -467,11 +467,12 @@ void process_command(const char* cmd) {
     
     if (strcmp(cmd, "help") == 0) {
         terminal_print("\nComandos disponiveis:\n");
-        terminal_print("  help   - Mostra esta ajuda\n");
-        terminal_print("  clear  - Limpa a tela\n");
-        terminal_print("  about  - Informacoes do kernel\n");
-        terminal_print("  uptime - Tempo ligado (em ticks)\n");
-        terminal_print("  echo   - Repete o texto digitado\n");
+        terminal_print("  help    - Mostra esta ajuda\n");
+        terminal_print("  clear   - Limpa a tela\n");
+        terminal_print("  about   - Informacoes do kernel\n");
+        terminal_print("  uptime  - Tempo ligado (em ticks)\n");
+        terminal_print("  echo    - Repete o texto digitado\n");
+        terminal_print("  license - Mostra licenca\n");
         
     } else if (strcmp(cmd, "clear") == 0) {
         terminal_init();
@@ -495,6 +496,15 @@ void process_command(const char* cmd) {
         uint_to_str(timer_ticks / TIMER_FREQUENCY, buffer, sizeof(buffer));
         terminal_print(buffer);
         terminal_print("s)\n");
+        
+    } else if (strcmp(cmd, "license") == 0) {
+        terminal_print("\nNanoOS - Licenca MIT\n");
+        terminal_print("Copyright (c) 2025 marcosgomes068 / pietr0davila\n");
+        terminal_print("\nDesenvolvedores:\n");
+        terminal_print("- Marcos Gomes: https://github.com/marcosgomes068\n");
+        terminal_print("- Pietro Davila: https://github.com/pietr0davila\n");
+        terminal_print("\nSoftware livre sob licenca MIT.\n");
+        terminal_print("Veja o arquivo LICENSE para detalhes completos.\n");
         
     } else if (strlen(cmd) > 5 && cmd[0] == 'e' && cmd[1] == 'c' && 
                cmd[2] == 'h' && cmd[3] == 'o' && cmd[4] == ' ') {
