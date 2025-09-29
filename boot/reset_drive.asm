@@ -15,9 +15,10 @@ reset_drive:
     int 0x13 ; interrupção para discos
     jc .error ; Se der erro mostra a msg (carry flag = 1)
     jmp .done ; Pronto
-    
+
 .error:
-    mov si, init_disk_exception
+    ; Imprime a msg de erro
+    mov si, init_disk_exception 
     mov cx, INIT_DISK_EXCEPTION_LEN
     call write_char
 

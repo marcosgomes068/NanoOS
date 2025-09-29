@@ -26,7 +26,7 @@ init_state:
     mov si, ax ; Zera si
     mov cx, ax ; Zera cx
     mov ss, ax ; Zera ss
-    mov sp, BASE ; Topo da stack iniciando em 2000 e terminando em0
+    mov sp, BASE - 2 ; Topo da stack iniciando em 2000 e terminando em0
     cld ; Limpa a direction flag 
     cli ; Ignora interrupções da externas
 
@@ -38,16 +38,18 @@ init_state:
 
 start:
     call reset_drive
-    ; call clear
-
+    call read_sectors
+;******************************************************************;
+;                            Reinicializa os discos                                ;
+;******************************************************************;
+ 
 %include "reset_drive.asm"
-; %include "utils/interruptions/clear.asm"
 
+;*************************************************************;
+;                                   Lê os setores                               ;
+;*************************************************************;
 
-;******************************************************************;
-;                       Limpa a tela padrão da BIOS                          ;
-;******************************************************************;
-
+%include "read_sectors.asm"
 
 ;************************************************************************;
 ;                       Pausa a CPU até a próxima interrupção                ;

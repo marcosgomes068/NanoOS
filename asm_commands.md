@@ -173,7 +173,7 @@
 | Comando | Função | Template |
 |---------|--------|---------|
 | `times N db X` | Repete X N vezes | `times 510 db 0` |
-
+| `seg label` | Retorna o segmento do label | `seg buffer` |
 ---
 
 ## Expressões Úteis
