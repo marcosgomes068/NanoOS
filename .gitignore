@@ -1,0 +1,42 @@
+# Arquivos compilados
+*.o
+*.bin
+*.elf
+*.iso
+
+# Arquivos de build
+kernel
+boot.o
+kernel.o
+gdt_flush.o
+
+# Arquivos temporários do sistema
+*~
+*.tmp
+*.swp
+*.swo
+
+# Logs e debug
+*.log
+debug/
+
+# Arquivos do IDE/Editor
+.vscode/
+.idea/
+*.code-workspace
+
+# Arquivos do sistema Windows
+Thumbs.db
+Desktop.ini
+
+# Arquivos do sistema Linux/Mac
+.DS_Store
+.directory
+
+# Diretórios de build
+build/
+dist/
+obj/
+
+# Arquivos de imagem ISO gerados
+*.img
