@@ -18,7 +18,7 @@ LDFLAGS = -m elf_i386 -T linker.ld
 # -T linker.ld: usa script de linker customizado
 
 # Lista de arquivos objeto a serem compilados
-OBJS = boot.o kernel.o gdt_flush.o
+OBJS = boot.o kernel.o gdt_flush.o interrupt.o
 
 # Target padrão: compila o kernel
 all: kernel.bin
@@ -37,6 +37,10 @@ boot.o: boot.s
 
 # Compila o flush da GDT em assembly  
 gdt_flush.o: gdt_flush.s
+	$(AS) --32 $< -o $@
+
+# Compila os handlers de interrupção em assembly
+interrupt.o: interrupt.s
 	$(AS) --32 $< -o $@
 
 # Remove arquivos compilados
