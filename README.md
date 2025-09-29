@@ -14,6 +14,17 @@ Mini terminal interativo
 
 Estrutura modular para expansão
 
+lista do que o NanoOS já tem:
+
+[1] Bootloader Multiboot compatível (GRUB)
+[2] Configuração de stack (pilha de 16KB)
+[3] GDT (Global Descriptor Table) funcional
+[4] Terminal VGA em modo texto
+[5] Mini terminal interativo com comandos básicos (help, clear, about)
+[6] Estrutura modular separada (boot, GDT, terminal, linker)
+[7] Makefile para build e execução no QEMU
+[8] Script de linker customizado
+
 Compilar
 make
 
