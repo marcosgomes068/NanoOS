@@ -52,10 +52,8 @@ Estrutura
 
 Próximos Passos
 
-IDT e interrupções
-
-Driver de teclado
-
-Gerenciamento de memória
-
-Multitasking básico
+- IDT e interrupções (implementado)
+- Driver de teclado (em progresso)
+- Timer (PIT) (em progresso)
+- Gerenciamento de memória
+- Multitasking básico
