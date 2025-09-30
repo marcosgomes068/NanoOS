@@ -5,7 +5,6 @@
 *.iso
 
 # Arquivos de build
-kernel
 boot.o
 kernel.o
 gdt_flush.o
