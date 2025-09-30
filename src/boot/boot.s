@@ -24,10 +24,12 @@ stack_top:                      # Topo da stack (cresce para baixo)
 .global _start                  # Torna _start visível para o linker
 .type _start, @function         # Define _start como uma função
 _start:
-    mov $stack_top, %esp        # Configura o ponteiro da stack (ESP)
+    mov esp, offset stack_top   # Configura o ponteiro da stack (ESP)
     call kernel_main            # Chama a função principal do kernel em C
     cli                         # Desabilita interrupções (Clear Interrupt)
 1:  hlt                         # Para o processador (Halt)
     jmp 1b                      # Loop infinito caso o processador acorde
 
 .size _start, . - _start        # Define o tamanho da função _start
+
+.section .note.GNU-stack,"",@progbits

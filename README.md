@@ -44,9 +44,19 @@ about - Info do kernel
 
 Estrutura
 .
-├── boot.s
-├── kernel.c
-├── gdt_flush.s
+├── src/
+│   ├── boot/
+│   │   └── boot.s
+│   ├── gdt/
+│   │   └── gdt_flush.s
+│   ├── kernel/
+│   │   ├── kernel.c
+│   │   └── commands.c
+│   └── interrupts/
+│       └── interrupts.s
+├── include/
+│   ├── kernel.h
+│   └── commands.h
 ├── linker.ld
 └── Makefile
 
