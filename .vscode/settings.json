@@ -1,0 +1,25 @@
+{
+    "C_Cpp.errorSquiggles": "disabled",
+    "C_Cpp.intelliSenseEngine": "Tag Parser",
+    "C_Cpp.default.defines": [
+        "__GNUC__",
+        "__i386__",
+        "__ELF__",
+        "__attribute__(x)=",
+        "__asm__=asm",
+        "__volatile__=volatile"
+    ],
+    "C_Cpp.default.compilerArgs": [
+        "-m32",
+        "-ffreestanding",
+        "-nostdlib",
+        "-fno-pie",
+        "-masm=intel"
+    ],
+    "files.associations": {
+        "*.s": "asm-intel-x86-generic",
+        "*.h": "c",
+        "*.c": "c"
+    },
+    "terminal.integrated.defaultProfile.windows": "PowerShell"
+}

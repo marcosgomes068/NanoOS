@@ -26,7 +26,7 @@ init_state:
     mov si, ax ; Zera si
     mov cx, ax ; Zera cx
     mov ss, ax ; Zera ss
-    mov sp, BASE - 2 ; Topo da stack iniciando em 2000 e terminando em0
+    mov sp, 0x7C00 ; Topo da stack iniciando dentro do bootloader
     cld ; Limpa a direction flag 
     cli ; Ignora interrupções da externas
 

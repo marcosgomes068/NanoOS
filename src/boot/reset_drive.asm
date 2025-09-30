@@ -2,9 +2,11 @@
 ;                           reset_drive.asm                            ;
 ; ******************************************************* ;
 
-init_disk_successfully db "[+] Discos reinicializados e em funcionamento", 0 ; Msg de sucesso
+init_disk_successfully db "[+] Discos reinicializados e em funcionamento", 0xD, 0xA, 0x0
+; Msg de sucesso
 INIT_DISK_SUCCESSFULLY_LEN equ $ - init_disk_successfully ; Tamanho da msg de sucesso
-init_disk_exception db "[-] Não foi possível inicializar o(s) disco(s)", 0 ; Msg de erro
+init_disk_exception db "[-] Não foi possível inicializar o(s) disco(s)", 0xD, 0xA, 0x0    
+; Msg de erro
 INIT_DISK_EXCEPTION_LEN equ $ - init_disk_exception ; Tamanho da msg de erro
 
 %include "utils/interruptions/write.asm" ; função para escrever na bios
