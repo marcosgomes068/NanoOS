@@ -21,7 +21,6 @@ gdt_flush.o
 debug/
 
 # Arquivos do IDE/Editor
-.vscode/
 .idea/
 *.code-workspace
 

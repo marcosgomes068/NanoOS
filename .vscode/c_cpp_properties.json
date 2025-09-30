@@ -1,0 +1,38 @@
+{
+    "configurations": [
+        {
+            "name": "NanoOS Kernel",
+            "includePath": [
+                "${workspaceFolder}/include",
+                "${workspaceFolder}/src"
+            ],
+            "defines": [
+                "__GNUC__",
+                "__i386__", 
+                "__ELF__",
+                "__attribute__(x)=",
+                "__asm__=asm",
+                "__volatile__=volatile",
+                "__packed__=",
+                "KERNEL_BUILD"
+            ],
+            "cStandard": "c11",
+            "intelliSenseMode": "gcc-x86",
+            "compilerArgs": [
+                "-m32",
+                "-ffreestanding",
+                "-nostdlib",
+                "-fno-pie",
+                "-masm=intel"
+            ],
+            "browse": {
+                "path": [
+                    "${workspaceFolder}/include",
+                    "${workspaceFolder}/src"
+                ],
+                "limitSymbolsToIncludedHeaders": false
+            }
+        }
+    ],
+    "version": 4
+}
