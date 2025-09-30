@@ -7,6 +7,7 @@
 #include <stdint.h>
 #include <stddef.h>
 #include "../include/commands.h"
+#include "../include/network.h"
 
 // ============================================================================
 // CONFIGURAÇÕES DE HARDWARE
@@ -156,15 +157,39 @@ static const char keyboard_map[128] = {
 // ============================================================================
 
 // Lê um byte de uma porta de I/O
-static inline uint8_t inb(uint16_t port) {
+uint8_t inb(uint16_t port) {
     uint8_t result;
     __asm__ volatile ("in al, dx" : "=a"(result) : "d"(port));
     return result;
 }
 
 // Escreve um byte em uma porta de I/O
-static inline void outb(uint16_t port, uint8_t value) {
+void outb(uint16_t port, uint8_t value) {
     __asm__ volatile ("out dx, al" : : "a"(value), "d"(port));
+}
+
+// Lê uma word (16 bits) de uma porta de I/O
+uint16_t inw(uint16_t port) {
+    uint16_t result;
+    __asm__ volatile ("in ax, dx" : "=a"(result) : "d"(port));
+    return result;
+}
+
+// Escreve uma word (16 bits) em uma porta de I/O
+void outw(uint16_t port, uint16_t value) {
+    __asm__ volatile ("out dx, ax" : : "a"(value), "d"(port));
+}
+
+// Lê uma dword (32 bits) de uma porta de I/O
+uint32_t inl(uint16_t port) {
+    uint32_t result;
+    __asm__ volatile ("in eax, dx" : "=a"(result) : "d"(port));
+    return result;
+}
+
+// Escreve uma dword (32 bits) em uma porta de I/O
+void outl(uint16_t port, uint32_t value) {
+    __asm__ volatile ("out dx, eax" : : "a"(value), "d"(port));
 }
 
 // ============================================================================
@@ -218,6 +243,50 @@ void uint_to_str(uint32_t num, char* buffer, size_t buffer_size) {
     }
     
     buffer[i] = '\0';
+}
+
+// Copia string
+void string_copy(const char* src, char* dst) {
+    if (!src || !dst) return;
+    while (*src) {
+        *dst++ = *src++;
+    }
+    *dst = '\0';
+}
+
+// Calcula comprimento da string
+size_t string_length(const char* str) {
+    return strlen(str);
+}
+
+// Compara memória
+int memory_compare(const void* s1, const void* s2, size_t n) {
+    const unsigned char* p1 = (const unsigned char*)s1;
+    const unsigned char* p2 = (const unsigned char*)s2;
+    
+    for (size_t i = 0; i < n; i++) {
+        if (p1[i] != p2[i]) {
+            return p1[i] - p2[i];
+        }
+    }
+    return 0;
+}
+
+// Copia memória
+void memory_copy(void* dst, const void* src, size_t n) {
+    unsigned char* d = (unsigned char*)dst;
+    const unsigned char* s = (const unsigned char*)src;
+    
+    for (size_t i = 0; i < n; i++) {
+        d[i] = s[i];
+    }
+}
+
+// Imprime número decimal
+void terminal_print_dec(uint32_t num) {
+    char buffer[16];
+    uint_to_str(num, buffer, sizeof(buffer));
+    terminal_print(buffer);
 }
 
 // ============================================================================
@@ -547,6 +616,7 @@ void kernel_main(void) {
     timer_init();       // 3. Inicializa o timer (PIT)
     idt_init();         // 4. Configura IDT e habilita interrupções
     keyboard_init();    // 5. Stub de inicialização do teclado
+    network_init();     // 6. Inicializa o subsistema de rede
     
     // Mensagem de boas-vindas
     terminal_print("Bem-vindo ao NanoOS!\n\n");

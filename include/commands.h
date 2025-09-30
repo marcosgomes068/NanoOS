@@ -26,6 +26,12 @@ void cmd_cat(const char* filename);
 void cmd_fsinfo(void);
 void cmd_diskinfo(void);
 
+// Comandos de rede
+void cmd_ifconfig(void);
+void cmd_ping(const char* target);
+void cmd_arp(void);
+void cmd_netstat(void);
+
 // Função auxiliar para imprimir no terminal
 void terminal_print(const char* str);
 

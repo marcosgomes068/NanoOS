@@ -4,6 +4,7 @@
 // ============================================================================
 
 #include "../../include/commands.h"
+#include "../../include/network.h"
 #include <stdint.h>
 #include <stddef.h>
 
@@ -25,6 +26,11 @@ void cmd_help(void) {
     terminal_print("  echo     - Repete o texto digitado\n");
     terminal_print("  license  - Mostra licenca e desenvolvedores\n");
     terminal_print("  shutdown - Encerra o sistema\n");
+    terminal_print("\nRede:\n");
+    terminal_print("  ifconfig - Mostra configuracoes de rede\n");
+    terminal_print("  ping IP  - Envia ping para endereco IP\n");
+    terminal_print("  arp      - Mostra tabela ARP\n");
+    terminal_print("  netstat  - Estatisticas de rede\n");
     terminal_print("\nSistema de arquivos: (em desenvolvimento)\n");
     terminal_print("\nAtalhos para encerrar:\n");
     terminal_print("- Comando: shutdown\n");
@@ -154,6 +160,21 @@ void process_command(const char* cmd) {
         
     } else if (strcmp(cmd, "diskinfo") == 0) {
         cmd_diskinfo();
+        
+    // Comandos de rede
+    } else if (strcmp(cmd, "ifconfig") == 0) {
+        cmd_ifconfig();
+        
+    } else if (strcmp(cmd, "arp") == 0) {
+        cmd_arp();
+        
+    } else if (strcmp(cmd, "netstat") == 0) {
+        cmd_netstat();
+        
+    } else if (strlen(cmd) > 5 && cmd[0] == 'p' && cmd[1] == 'i' && 
+               cmd[2] == 'n' && cmd[3] == 'g' && cmd[4] == ' ') {
+        // Comando ping - ping para IP específico
+        cmd_ping(cmd + 5);
         
     } else if (strlen(cmd) > 4 && cmd[0] == 'c' && cmd[1] == 'a' && 
                cmd[2] == 't' && cmd[3] == ' ') {

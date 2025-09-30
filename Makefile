@@ -34,7 +34,7 @@ LDFLAGS = -m elf_i386 -T linker.ld
 # -T linker.ld: usa script de linker customizado
 
 # Lista de arquivos objeto a serem compilados
-OBJS = $(BUILD_DIR)/boot.o $(BUILD_DIR)/kernel.o $(BUILD_DIR)/gdt_flush.o $(BUILD_DIR)/interrupts.o $(BUILD_DIR)/commands.o
+OBJS = $(BUILD_DIR)/boot.o $(BUILD_DIR)/kernel.o $(BUILD_DIR)/gdt_flush.o $(BUILD_DIR)/interrupts.o $(BUILD_DIR)/commands.o $(BUILD_DIR)/network.o
 
 # Target padrão: compila o kernel
 all: $(BUILD_DIR) kernel.bin
@@ -57,6 +57,10 @@ $(BUILD_DIR)/commands.o: $(COMMANDS_DIR)/commands.c $(INCLUDE_DIR)/commands.h
 
 # Compila o sistema de arquivos
 $(BUILD_DIR)/filesystem.o: $(SRC_DIR)/filesystem/filesystem.c $(INCLUDE_DIR)/filesystem.h
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Compila o subsistema de rede
+$(BUILD_DIR)/network.o: $(SRC_DIR)/network/network.c $(INCLUDE_DIR)/network.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Compila o driver de disco

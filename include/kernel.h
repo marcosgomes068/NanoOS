@@ -80,6 +80,10 @@ typedef struct {
 // Funções de I/O
 uint8_t inb(uint16_t port);
 void outb(uint16_t port, uint8_t value);
+uint16_t inw(uint16_t port);
+void outw(uint16_t port, uint16_t value);
+uint32_t inl(uint16_t port);
+void outl(uint16_t port, uint32_t value);
 
 // Funções do terminal
 void terminal_init(void);
@@ -99,6 +103,11 @@ void keyboard_handler(void);
 size_t strlen(const char* str);
 int strcmp(const char* s1, const char* s2);
 void uint_to_str(uint32_t num, char* buffer, size_t buffer_size);
+size_t string_length(const char* str);
+void string_copy(const char* src, char* dst);
+void memory_copy(void* dst, const void* src, size_t n);
+int memory_compare(const void* s1, const void* s2, size_t n);
+void terminal_print_dec(uint32_t num);
 
 // Função principal do kernel
 void kernel_main(void);
