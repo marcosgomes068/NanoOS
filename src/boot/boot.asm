@@ -3,7 +3,7 @@
 ; ******************************************************* ;
 
 %DEFINE BASE 0x7C00 ; Inicio do bootloader
-%DEFINE SEGMENT_END 0x7E00 ; Fim do bootloader (512 bytes)
+%DEFINE SEGMENT_END 0x7DFF ; Fim do bootloader (512 bytes)
 %DEFINE VIDEO_FUNC 0x10 ; Funções de vídeo da bios
 %DEFINE SIZE 512 ; Tamanho do bootloader
 %DEFINE BOOT_SIGN 0xAA55 ; assinatura do Bootloader
@@ -25,11 +25,13 @@ init_state:
     xor ax, ax ; Zera ax
     mov si, ax ; Zera si
     mov cx, ax ; Zera cx
-    mov ss, ax ; Zera ss
-    mov sp, 0x7C00 ; Topo da stack iniciando dentro do bootloader
+    mov ss, ax ; Segmento da stack = 0
+    ; stack = ss * 16 + sp
+    mov sp, 0x7E00 ; Topo da stack iniciando dentro do bootloader
+    ; stack = 0x0000 * 16 + 7E00 = 7E00
     cld ; Limpa a direction flag 
     cli ; Ignora interrupções da externas
-
+    
 
 
 ;*******************************************************************;

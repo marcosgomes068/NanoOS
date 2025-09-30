@@ -16,7 +16,7 @@ dap:
     db 0x0 ; reservado
     dw 1 ; Setores a ler
     dw 0x0000 ; Offset em memória livre para o kernel
-    dw 0x0100 ; Segmento / 16
+    dw 0x0100 ; Segmento 
     dq 0 ; LBA 0
 
 read_sectors:
