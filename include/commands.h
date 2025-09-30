@@ -20,6 +20,12 @@ void cmd_license(void);
 void cmd_echo(const char* text);
 void cmd_shutdown(void);
 
+// Comandos do sistema de arquivos
+void cmd_ls(void);
+void cmd_cat(const char* filename);
+void cmd_fsinfo(void);
+void cmd_diskinfo(void);
+
 // Função auxiliar para imprimir no terminal
 void terminal_print(const char* str);
 

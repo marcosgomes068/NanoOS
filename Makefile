@@ -55,6 +55,14 @@ $(BUILD_DIR)/kernel.o: $(KERNEL_DIR)/kernel.c $(INCLUDE_DIR)/kernel.h
 $(BUILD_DIR)/commands.o: $(COMMANDS_DIR)/commands.c $(INCLUDE_DIR)/commands.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
+# Compila o sistema de arquivos
+$(BUILD_DIR)/filesystem.o: $(SRC_DIR)/filesystem/filesystem.c $(INCLUDE_DIR)/filesystem.h
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Compila o driver de disco
+$(BUILD_DIR)/disk.o: $(SRC_DIR)/filesystem/disk.c $(INCLUDE_DIR)/disk.h
+	$(CC) $(CFLAGS) -c $< -o $@
+
 # Compila o bootstrap em assembly
 $(BUILD_DIR)/boot.o: $(BOOT_DIR)/boot.s
 	$(AS) $(ASFLAGS) $< -o $@
