@@ -18,9 +18,13 @@ void cmd_about(void);
 void cmd_uptime(void);
 void cmd_license(void);
 void cmd_echo(const char* text);
+void cmd_shutdown(void);
 
 // Função auxiliar para imprimir no terminal
 void terminal_print(const char* str);
+
+// Função de encerramento do sistema
+void shutdown_system(void);
 
 // Função auxiliar para conversão de números
 void uint_to_str(uint32_t num, char* buffer, size_t buffer_size);

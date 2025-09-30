@@ -17,12 +17,17 @@ extern void terminal_init(void);
 // Comando: help - Mostra lista de comandos disponíveis
 void cmd_help(void) {
     terminal_print("\nComandos disponiveis:\n");
-    terminal_print("  help    - Mostra esta ajuda\n");
-    terminal_print("  clear   - Limpa a tela\n");
-    terminal_print("  about   - Informacoes do kernel\n");
-    terminal_print("  uptime  - Tempo ligado (em ticks)\n");
-    terminal_print("  echo    - Repete o texto digitado\n");
-    terminal_print("  license - Mostra licenca e desenvolvedores\n");
+    terminal_print("  help     - Mostra esta ajuda\n");
+    terminal_print("  clear    - Limpa a tela\n");
+    terminal_print("  about    - Informacoes do kernel\n");
+    terminal_print("  uptime   - Tempo ligado (em ticks)\n");
+    terminal_print("  echo     - Repete o texto digitado\n");
+    terminal_print("  license  - Mostra licenca e desenvolvedores\n");
+    terminal_print("  shutdown - Encerra o sistema\n");
+    terminal_print("\nAtalhos para encerrar:\n");
+    terminal_print("- Comando: shutdown\n");
+    terminal_print("- Teclas: ESC ou F1\n");
+    terminal_print("- Sequencia: qqq (3x q seguidos)\n");
 }
 
 // Comando: clear - Limpa a tela
@@ -72,6 +77,12 @@ void cmd_echo(const char* text) {
     terminal_print("\n");
 }
 
+// Comando: shutdown - Encerra o sistema
+void cmd_shutdown(void) {
+    terminal_print("\nEncerrando o sistema...\n");
+    shutdown_system();
+}
+
 // ============================================================================
 // PROCESSADOR PRINCIPAL DE COMANDOS
 // ============================================================================
@@ -94,6 +105,9 @@ void process_command(const char* cmd) {
         
     } else if (strcmp(cmd, "license") == 0) {
         cmd_license();
+        
+    } else if (strcmp(cmd, "shutdown") == 0) {
+        cmd_shutdown();
         
     } else if (strlen(cmd) > 5 && cmd[0] == 'e' && cmd[1] == 'c' && 
                cmd[2] == 'h' && cmd[3] == 'o' && cmd[4] == ' ') {

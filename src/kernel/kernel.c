@@ -44,6 +44,7 @@
 
 // Funções de processamento de entrada
 void handle_keypress(uint8_t scancode);
+void shutdown_system(void);
 
 // ============================================================================
 // ESTRUTURAS DE DADOS
@@ -99,6 +100,7 @@ static uint8_t terminal_color = 0x0F;                 // Cor padrão (branco no 
 // Teclado e entrada
 static char input_buffer[256];        // Buffer para comandos digitados
 static size_t input_pos = 0;         // Posição atual no buffer
+static int quit_sequence = 0;        // Contador para sequência de saída
 
 // Timer
 volatile uint32_t timer_ticks = 0;     // Contador do timer (volatile para ISR)
@@ -427,6 +429,24 @@ void keyboard_handler(void) {
 }
 
 // ============================================================================
+// FUNÇÃO DE ENCERRAMENTO DO SISTEMA
+// ============================================================================
+
+// Encerra o sistema (shutdown)
+void shutdown_system(void) {
+    terminal_print("\n\n--- SISTEMA ENCERRADO ---\n");
+    terminal_print("Pressione Ctrl+C para encerrar.\n");
+    
+    // Desabilita as interrupções
+    __asm__ volatile ("cli");
+    
+    // Loop infinito para parar o sistema
+    while (1) {
+        __asm__ volatile ("hlt");  // Para o processador
+    }
+}
+
+// ============================================================================
 // FUNÇÕES DO TECLADO
 // ============================================================================
 
@@ -435,9 +455,37 @@ void handle_keypress(uint8_t scancode) {
     // Ignora teclas liberadas (bit 7 = 1)
     if (scancode & 0x80) return;
     
+    // Verifica tecla ESC (scancode 1) para shutdown direto
+    if (scancode == 1) {
+        terminal_print("\n\n*** ESC PRESSIONADO - ENCERRANDO SISTEMA ***\n");
+        shutdown_system();
+        return;
+    }
+    
+    // Verifica F1 (scancode 59) para shutdown
+    if (scancode == 59) {
+        terminal_print("\n\n*** F1 PRESSIONADO - ENCERRANDO SISTEMA ***\n");
+        shutdown_system();
+        return;
+    }
+    
+    // Sistema de shutdown implementado com teclas especiais e sequências
+    
     // Converte scancode para ASCII
     char key = keyboard_map[scancode];
     if (key == 0) return;  // Tecla não mapeada
+    
+    // Detecta sequência tripla de 'q' para shutdown de emergência
+    if (key == 'q') {
+        quit_sequence++;
+        if (quit_sequence >= 3) {
+            terminal_print("\n\n*** SEQUENCIA DE EMERGENCIA DETECTADA ***\n");
+            shutdown_system();
+            return;
+        }
+    } else {
+        quit_sequence = 0;  // Reseta contador se não for 'q'
+    }
     
     if (key == '\n') {
         // Enter - processa comando
