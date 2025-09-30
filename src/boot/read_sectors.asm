@@ -12,12 +12,15 @@ ERROR_READING_FLOPPY_LEN equ $ - error_reading_floppy
 
 
 dap:
+    xor ax, ax
+    mov ds, ax
+    mov si, 0x600
     db 0x10 ; Tamanho do dap
     db 0x0 ; reservado
     dw 1 ; Setores a ler
     dw 0x0000 ; Offset em memória livre para o kernel
-    dw 0x0100 ; Segmento 
-    dq 0 ; LBA 0
+    dw 0x1000 ; Segmento 
+    dq 1 ; LBA 1 (Setor 1   )
 
 read_sectors:
     ; Tenta ler o HDD principal

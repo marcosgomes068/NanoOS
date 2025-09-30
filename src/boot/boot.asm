@@ -38,9 +38,14 @@ init_state:
 ;            Define o contador e o ponteiro da mensagem           ;
 ;*******************************************************************;
 
+
 start:
     call reset_drive
+    pusha
     call read_sectors
+    popa
+    jmp 0x1000:0x0000
+
 ;******************************************************************;
 ;                            Reinicializa os discos                                ;
 ;******************************************************************;
